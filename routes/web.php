@@ -12,9 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('partials.items');
 });
+
+Route::post('/edit', 'ItemController@edit')->name('create');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
