@@ -1,1 +1,4 @@
-<p>&copy; 2016 Company, Inc.</p>
+<div class="container">
+    <hr>
+    <p>&copy; 2018 Company, Giraffe.</p>
+</div>

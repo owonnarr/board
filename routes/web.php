@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('partials.items');
-});
+Route::get('/', 'ItemController@index')->name('home');
 
-Route::post('/edit', 'ItemController@edit')->name('create');
+Route::post('/edit', 'ItemController@create')->name('create');
+Route::get('/edit', 'ItemController@form')->name('form');
+Route::post('/edit/{id}', 'ItemController@edit')->name('edit');
+Route::get('/{id}', 'ItemController@show')->name('show_item');
 
 Auth::routes();
 

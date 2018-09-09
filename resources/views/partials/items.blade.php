@@ -1,18 +1,19 @@
 @extends('layouts.app')
 @section('content')
-<div class="col-md-4">
-    <h2>Heading</h2>
-    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+    <hr>
+<div class="col-md-12">
+    @if(!empty($items))
+    @foreach($items as $item)
+    <div class="col-md-2" style="height: 200px; width: 20%;">
+        <h4 style="font-weight: bold">{{ $item->title }}</h4>
+        <p style="word-wrap: break-word;">{{ $item->description }}</p>
+        <a style="position:absolute;bottom:0;" class="btn btn-default" href="#" role="button">More info &raquo;</a>
+    </div>
+    @endforeach
+    @endif
+    <div class="container">
+        @include('partials.pagination')
+    </div>
 </div>
-<div class="col-md-4">
-    <h2>Heading</h2>
-    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-</div>
-<div class="col-md-4">
-    <h2>Heading</h2>
-    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-</div>
+    <hr>
 @endsection
