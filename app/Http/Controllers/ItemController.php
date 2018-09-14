@@ -73,26 +73,33 @@ class ItemController extends Controller
      * @param ItemValidation $valid
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(int $id, Request $request, ItemValidation $valid)
+    public function edit(int $id, Request $request)
     {
-        $item = new Item();
+        $item = Item::find($id);
 
         switch ($request->getMethod()) {
 
             case 'GET':
-                $data = Item::find($id);
+                $aData = Item::find($id);
 
-                if ($data !== null)
+                if ($aData !== null)
                     return view('items.edit', [
-                        'item' => $data,
+                        'item' => $aData,
                     ]);
                 break;
 
             case 'POST':
-                $data = $valid->validated();
 
-                if ($data) {
-                    $item->update($data);
+                $this->validate($request, $rules = [
+                    'title' => 'required|max:35',
+                    'description' => 'required|max:255',
+                ]);
+                $aData = $request->all();
+                $aData['user_id'] = Auth::user()->id;
+                
+                if ($aData) {
+                    $item->update($aData);
+                    return redirect(route('home'));
                 }
         }
 
