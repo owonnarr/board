@@ -5,7 +5,7 @@
         <div class="container">
             @if(!empty($item))
             <div class="col-md-5 col-md-offset-3" style="border: 1px #eee solid; padding: 10px" >
-                <form action="{{ route('edit') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('edit', $item->id) }}" method="POST" enctype="multipart/form-data">
                     <input type="text" name="_token" value="{{ csrf_token()}}" hidden>
 
                     <div class="form-group">

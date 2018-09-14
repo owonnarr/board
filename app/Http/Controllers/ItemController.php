@@ -66,30 +66,43 @@ class ItemController extends Controller
 
     }
 
-
-    public function edit(int $id, ItemValidation $request)
+    /**
+     * обновление данных объявления
+     * @param int $id
+     * @param Request $request
+     * @param ItemValidation $valid
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(int $id, Request $request, ItemValidation $valid)
     {
+        $item = new Item();
+
         switch ($request->getMethod()) {
 
             case 'GET':
-                $item = Item::find($id);
+                $data = Item::find($id);
 
-                if ($item !== null)
-                    return view('items.edit_item', [
-                        'item' => $item,
+                if ($data !== null)
+                    return view('items.edit', [
+                        'item' => $data,
                     ]);
                 break;
 
             case 'POST':
-                $item = $request->validated();
+                $data = $valid->validated();
 
-                if ($item) {
-                    Item::save($item);
+                if ($data) {
+                    $item->update($data);
                 }
         }
 
     }
 
+    /**
+     * страница просмотра объявления
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(int $id)
     {
         $item = Item::find($id);
@@ -103,6 +116,11 @@ class ItemController extends Controller
 
     }
 
+    /**
+     * удаление объявления
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function delete(int $id)
     {
         if ($id && Item::find($id) !== null) {
