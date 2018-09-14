@@ -22,6 +22,8 @@ class ItemController extends Controller
         $item = new Item();
         $items = $item->getItemsPagination();
 
+        $userId = false;
+
         if (Auth::check()) {
             $userId = Auth::user()->id;
         }
@@ -96,7 +98,7 @@ class ItemController extends Controller
                 ]);
                 $aData = $request->all();
                 $aData['user_id'] = Auth::user()->id;
-                
+
                 if ($aData) {
                     $item->update($aData);
                     return redirect(route('home'));

@@ -20,16 +20,16 @@
                         <a style="font-size: 16px; color: coral" href="{{ url('/logout') }}">Logout</a>
                     </div>
                 @else
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                         @csrf
                         <div class="form-group">
-                            <input type="text" placeholder="login" class="form-control">
+                            <input type="text" placeholder="login" name="name" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input type="password" placeholder="Password" class="form-control">
+                            <input type="password" placeholder="Password" name="password" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-success">Sign in</button>
-                        <a class="btn btn-info" href="/register">Register</a>
+                        {{--<a class="btn btn-info" href="/register">Register</a>--}}
                     </form>
                 @endauth
             </div>

@@ -11,15 +11,21 @@
 |
 */
 
+
+
+
 Auth::routes();
 
-Route::get('/', 'ItemController@index')->name('home');
 
-
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('/edit', 'ItemController@form')->name('form')->middleware('auth');
 Route::post('/edit', 'ItemController@create')->name('create');
-Route::get('/edit', 'ItemController@form')->name('form');
+
 Route::match(['get', 'post'], '/edit/{id}', 'ItemController@edit')->name('edit');
 Route::get('/show/{id}', 'ItemController@show')->name('show');
 Route::get('/delete/{id}', 'ItemController@delete')->name('delete');
 
+
+
+
+Route::get('/', 'ItemController@index')->name('home');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

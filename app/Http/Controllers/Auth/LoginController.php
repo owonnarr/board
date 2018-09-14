@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 
 class LoginController extends Controller
 {
@@ -38,16 +40,15 @@ class LoginController extends Controller
     public function __construct(Request $request)
     {
         $this->middleware('guest')->except('logout');
-//        dd($request->email);
+
     }
 
-    public function logout() {
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function logout()
+    {
         Auth::logout();
         return redirect('/login');
-    }
-
-    public function checkUser(string $name)
-    {
-
     }
 }
