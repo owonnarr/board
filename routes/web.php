@@ -11,14 +11,15 @@
 |
 */
 
-Route::get('/', 'ItemController@index')->name('home');
-
-Route::post('/edit', 'ItemController@create')->name('create');
-Route::get('/edit', 'ItemController@form')->name('form');
-Route::post('/edit/{id}', 'ItemController@edit')->name('edit');
-Route::get('/{id}', 'ItemController@show')->name('show_item');
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'ItemController@index')->name('home');
+
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::post('/edit', 'ItemController@create')->name('create');
+Route::get('/edit', 'ItemController@form')->name('form');
+Route::match(['get', 'post'], '/edit/{id}', 'ItemController@edit')->name('edit');
+Route::get('/show/{id}', 'ItemController@show')->name('show');
+Route::get('/delete/{id}', 'ItemController@delete')->name('delete');
 

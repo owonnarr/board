@@ -16,7 +16,7 @@
                         <label for="description">Description</label>
                         <input type="text" class="form-control" name="description" placeholder="description" required value="{{ $item->description }}">
                     </div>
-                    <button type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" class="btn btn-success">Update</button>
                 </form>
             </div>
             @endif

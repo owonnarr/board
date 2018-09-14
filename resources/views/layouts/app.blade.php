@@ -21,15 +21,15 @@
 </nav>
 
 
-    <div class="row">
-        <div class="container">
-            @yield('content')
-        </div>
-
-        <footer>
-            @include('partials.footer')
-        </footer>
+<div class="row">
+    <div class="container">
+        @yield('content')
     </div>
+
+    <footer>
+        @include('partials.footer')
+    </footer>
+</div>
 
 
 <!-- Bootstrap core JavaScript

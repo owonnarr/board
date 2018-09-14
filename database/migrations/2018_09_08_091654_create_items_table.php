@@ -17,6 +17,7 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->string('title')->default('no title');
             $table->string('description')->default('no description');
+            $table->integer('user_id')->nullable();
             $table->timestamps();
         });
     }
