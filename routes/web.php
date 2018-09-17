@@ -28,4 +28,5 @@ Route::get('/delete/{id}', 'ItemController@delete')->name('delete');
 
 
 Route::get('/', 'ItemController@index')->name('home');
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login');

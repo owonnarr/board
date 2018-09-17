@@ -23,13 +23,12 @@
                     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                         @csrf
                         <div class="form-group">
-                            <input type="text" placeholder="login" name="name" class="form-control">
+                            <input type="text" placeholder="login" name="username" class="form-control">
                         </div>
                         <div class="form-group">
                             <input type="password" placeholder="Password" name="password" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-success">Sign in</button>
-                        {{--<a class="btn btn-info" href="/register">Register</a>--}}
                     </form>
                 @endauth
             </div>

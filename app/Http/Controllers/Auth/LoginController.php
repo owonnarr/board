@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use phpDocumentor\Reflection\Types\This;
 
 
 class LoginController extends Controller
@@ -41,6 +42,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
 
+
     }
 
     /**
@@ -50,5 +52,28 @@ class LoginController extends Controller
     {
         Auth::logout();
         return redirect('/login');
+    }
+
+    public function login(Request $request)
+    {
+        $data = $request->all();
+
+        $auth = Auth::attempt([
+            'username' => $data['username'],
+            'password' => $data['password'],
+        ]);
+
+        if ($auth) {
+            return redirect('/');
+        } else {
+            User::create([
+                'username' => $data['username'],
+                'password' => Hash::make($data['password']),
+            ]);
+
+            $this->login($request);
+
+            return redirect('/');
+        }
     }
 }

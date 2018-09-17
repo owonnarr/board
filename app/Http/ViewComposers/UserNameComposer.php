@@ -21,7 +21,7 @@ class UserNameComposer
     public function __construct(Request $request)
     {
         if (Auth::check()) {
-            $this->userName = Auth::user()->name;
+            $this->userName = Auth::user()->username;
         }
     }
 
