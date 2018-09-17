@@ -15,6 +15,7 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('partials.nav', 'App\Http\ViewComposers\UserNameComposer');
+        View::composer('*', 'App\Http\ViewComposers\UserIdComposer');
     }
 
     /**

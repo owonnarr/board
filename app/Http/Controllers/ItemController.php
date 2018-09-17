@@ -22,16 +22,9 @@ class ItemController extends Controller
         $item = new Item();
         $items = $item->getItemsPagination();
 
-        $userId = false;
-
-        if (Auth::check()) {
-            $userId = Auth::user()->id;
-        }
-
         if ($items) {
             return view('partials.items', [
                 'items' => $items,
-                'userId' => $userId,
             ]);
         }
     }
