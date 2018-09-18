@@ -7,6 +7,7 @@ use App\Http\Requests\ItemValidation;
 use App\Helpers\ErrorsHelper;
 use App\Providers\AuthServiceProvider;
 use App\User;
+use http\Env\Response;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,32 +72,36 @@ class ItemController extends Controller
     public function edit(int $id, Request $request)
     {
         $item = Item::find($id);
+        if ($item->user_id === Auth::user()->id) {
+            switch ($request->getMethod()) {
 
-        switch ($request->getMethod()) {
+                case 'GET':
+                    $aData = Item::find($id);
 
-            case 'GET':
-                $aData = Item::find($id);
+                    if ($aData !== null)
+                        return view('items.edit', [
+                            'item' => $aData,
+                        ]);
+                    break;
 
-                if ($aData !== null)
-                    return view('items.edit', [
-                        'item' => $aData,
+                case 'POST':
+
+                    $this->validate($request, $rules = [
+                        'title' => 'required|max:35',
+                        'description' => 'required|max:255',
                     ]);
-                break;
+                    $aData = $request->all();
+                    $aData['user_id'] = Auth::user()->id;
 
-            case 'POST':
-
-                $this->validate($request, $rules = [
-                    'title' => 'required|max:35',
-                    'description' => 'required|max:255',
-                ]);
-                $aData = $request->all();
-                $aData['user_id'] = Auth::user()->id;
-
-                if ($aData) {
-                    $item->update($aData);
-                    return redirect(route('home'));
-                }
+                    if ($aData) {
+                        $item->update($aData);
+                        return redirect(route('home'));
+                    }
+            }
+        } else {
+            return response('У вас нет прав на редактирование этого объявления', 403);
         }
+
 
     }
 
@@ -125,9 +130,16 @@ class ItemController extends Controller
      */
     public function delete(int $id)
     {
-        if ($id && Item::find($id) !== null) {
-            Item::destroy($id);
-            return redirect('/');
+        $item = Item::find($id);
+
+        if ($id && $item !== null) {
+
+            if ($item->user_id === Auth::user()->id) {
+                Item::destroy($id);
+                return redirect('/');
+            } else {
+                return response('Удалить объявление может только автор', 403);
+            }
         }
     }
 
